@@ -1,0 +1,11 @@
+{% comment %} template  {% endcomment %}
+html
+<h1>Recipes</h1>
+<ul>
+  {% for recipe in recipes %}
+    <li>{{ recipe.name }}</li>
+    <li>{{ recipe.description }}</li>
+  {% endfor %}
+</ul>
+
+{% comment %} how to import database {% endcomment %}
