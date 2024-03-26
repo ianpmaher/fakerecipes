@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
+from utils import GetBody, get_mongo_client
 ## To serialize objects into json strings
 from .models import Recipe
 # Create your views here.
@@ -104,3 +105,27 @@ def recipe_list(request):
 # This method returns all the recipes in the database
 # The render function takes the request object, the name of the template and a dictionary of data to pass to the template
 # The dictionary is used to pass the recipes to the template
+
+def MongoView(request):
+    # get the body of the request
+    body = request.body
+    client = get_mongo_client()
+    # get the database
+    db = client.test
+    # get the collection
+    collection = db.test
+    # insert the body into the collection
+        # Attempt to find one document in the collection
+    document = collection.find_one()
+
+        # Convert the document to a dictionary, excluding the '_id' field
+    if document:
+        document.pop('_id', None)  # Remove the '_id' field as it's not JSON serializable
+        response_data = document
+    else:
+        response_data = {'error': 'No document found'}
+    
+    # Return the document data as a JSON response
+    return JsonResponse(response_data)
+
+    # return a response    

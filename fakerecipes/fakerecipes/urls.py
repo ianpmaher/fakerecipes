@@ -17,11 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from fakerecipesapp import views
-from fakerecipesapp.views import Recipe_View, RecipeViewID
+from fakerecipesapp.views import Recipe_View, RecipeViewID, MongoView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.recipe_list, name='recipe_list'),
     # path('', include('fakerecipesapp.urls')),
     path('recipe/', Recipe_View.as_view()),
+    path('test-mongo/', MongoView, name='test-mongo'),
 ]
