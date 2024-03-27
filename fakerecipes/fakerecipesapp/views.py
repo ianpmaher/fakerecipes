@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 from utils import GetBody, get_mongo_client
+from bson.json_util import dumps
+from django.http import HttpResponse
 ## To serialize objects into json strings
 from .models import Recipe
 # Create your views here.
@@ -115,17 +117,15 @@ def MongoView(request):
     # get the collection
     collection = db.test
     # insert the body into the collection
-        # Attempt to find one document in the collection
+    collection.insert_one(body)
+    # Attempt to find one document in the collection
     document = collection.find_one()
 
-        # Convert the document to a dictionary, excluding the '_id' field
+    # Convert the document to a dictionary, excluding the '_id' field
     if document:
-        document.pop('_id', None)  # Remove the '_id' field as it's not JSON serializable
-        response_data = document
+        response_data = dumps(document)  # Convert the document to a JSON string
     else:
-        response_data = {'error': 'No document found'}
+        response_data = dumps({'error': 'No document found'})
     
     # Return the document data as a JSON response
-    return JsonResponse(response_data)
-
-    # return a response    
+    return HttpResponse(response_data, content_type='application/json')

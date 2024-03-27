@@ -19,14 +19,7 @@ try:
     print("Pinged your deployment. You successfully connected to MongoDB!")
 except Exception as e:
     print(e)
-    
-'''
-mongodb+srv://ianpmaher:<password>@cluster0.2rxzajw.mongodb.net/
-'''
 
-'''
-zxZVlEC56toU6kiV
-'''
 
 def GetBody(request):
     # get the body of the request
