@@ -1,7 +1,14 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+# import dotenv
+# import os
+from dotenv import load_dotenv
+import os
 
-uri = "mongodb+srv://ianpmaher:fL4Xvqy2Z4RkjVHu@cluster0.2rxzajw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+load_dotenv()
+
+# get the URI from the environment
+uri = os.getenv('MONGO_URI')
 
 # Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi('1'))
@@ -15,6 +22,10 @@ except Exception as e:
     
 '''
 mongodb+srv://ianpmaher:<password>@cluster0.2rxzajw.mongodb.net/
+'''
+
+'''
+zxZVlEC56toU6kiV
 '''
 
 def GetBody(request):
